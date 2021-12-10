@@ -1,6 +1,6 @@
 lapply(c("data.table", "rstudioapi"), require, character.only = T)
 
-setwd(dirname(getActiveDocumentContext()$path))
+setwd(dirname(dirname(dirname(getActiveDocumentContext()$path))))
 
 source("https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_appeals_data.R")
 
@@ -19,7 +19,7 @@ appeals_clusters <- rbindlist(appeals_list, fill = T)
 appeals_clusters <- appeals_clusters[, lapply(.SD, function(x) as.numeric(gsub(",", "", x))), .SDcols = grep("US[$]", names(appeals_clusters), value = T), by = .(year, plan_name, Cluster)]
 appeals_clusters[, coverage := `Funding US$`/`Current requirements US$`]
 
-cluster.map <- fread("appeal_cluster_mapping.csv", encoding = "UTF-8")
+cluster.map <- fread("reference_datasets/appeal_cluster_mapping.csv", encoding = "UTF-8")
 
 cluster.map[, `:=` (caps_cluster = toupper(Cluster), Cluster = NULL)]
 cluster.map <- unique(cluster.map)
@@ -29,4 +29,5 @@ appeals_clusters <- merge(appeals_clusters, cluster.map, by = "caps_cluster", al
 
 appeals_clusters_agg <- appeals_clusters[, .(Requirements = sum(`Current requirements US$`, na.rm = T), Funding = sum(`Funding US$`, na.rm = T)), by = .(year, `Global cluster`)]
 
+setwd(dirname(getActiveDocumentContext()$path))
 fwrite(appeals_clusters_agg, "output_appeal_clusters_agg.csv")
