@@ -34,7 +34,9 @@ major.keywords <- c(
   "early recovery",
   "early response",
   "immediate recovery",
-  "immediate response"
+  "immediate response",
+  "rapid recovery",
+  "rapid response"
 )
 
 # disqualifying.keywords <- c(
@@ -45,7 +47,7 @@ fts$relevance <- "None"
 fts[`Global cluster` == "Early Recovery"]$relevance <- "Major: Sector"
 
 #We prevent keywords from identifying multi-sector projects for which a partial split has already been identified by the global sector
-fts[!(id %in% fts[`Global cluster` == "Early Recovery"]$id) & grepl(tolower(paste(major.keywords, collapse = "|")), tolower(paste(fts$description)))]$relevance <- "Major: Keyword"
+fts[!(id %in% fts[`Global cluster` == "Early Recovery"]$id) & grepl(tolower(paste(major.keywords, collapse = "|")), tolower(paste(fts$description, fts$keywords)))]$relevance <- "Major: Keyword"
 
 #fts$check <- "No"
 #fts[relevance != "None"][grepl(tolower(paste(disqualifying.keywords, collapse = "|")), tolower(paste(fts[relevance != "None"]$ProjectTitle, fts[relevance != "None"]$description, fts[relevance != "None"]$description)))]$check <- "potential false negative"
@@ -111,4 +113,6 @@ rm(list = c("hiik", "conflict"))
 fts_output <- merge(fts_output, countrynames[,c("iso3", "countryname_fts")], by.x = "destinationObjects_Location.name", by.y = "countryname_fts", all = T)
 fts_output[, conflict := ifelse(paste0(iso3,year) %in% paste0(conflict_isos$iso3, conflict_isos$year), "Conflict", "Non-conflict")]
 
-fts_output[!is.na(iso3), .(ea_disb = sum(amountUSD_defl, na.rm = T), ea_count = length(id)), by = .(year, conflict)][order(year)]
+fts_agg <- fts_output[!is.na(iso3), .(ea_disb = sum(amountUSD_defl, na.rm = T), ea_count = length(id)), by = .(year, conflict)][order(year)]
+
+fwrite(fts_agg, "Early and anticipatory action\\Fig 6.2\\Early action conflict settings.csv")
