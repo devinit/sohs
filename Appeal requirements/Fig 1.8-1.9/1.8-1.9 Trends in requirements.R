@@ -21,7 +21,7 @@ appeals_table <- rbindlist(lapply(appeals_list, data.table), fill = T)
 appeals_table <- appeals_table[, lapply(.SD, function(x) as.numeric(gsub("US[$]|,", "", x))), by = .(year, plan_name)]
 appeals_table[is.na(appeals_table)] <- 0
 
-appeals_table <- merge(appeals, appeals_table, by = c("plan_name", "year"), all = T)
+appeals_table <- merge(appeals[, -"year"], appeals_table[, -"plan_name"], by.x = "id", by.y = "appeal_id", all = T)
 
 #Choose which appeal types to include
 appeals_req <- appeals_table[!is.na(location) & type %in% c("CAP", "Humanitarian response plan", "Flash appeal", "Other"), .(total_funding = sum(`Funded through this plan` + `COVID.Funded through this plan`, na.rm = T), total_requirements = sum(`Total requirements` + `COVID.Total requirements`, na.rm = T)), by = .(location, year)][, requirements_met := total_funding/total_requirements]
