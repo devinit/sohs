@@ -11,8 +11,6 @@ fts <- fts_curated_flows(years = 2020:2021, update = NA, dataset_path = "referen
 
 #Assign a sector from available fields
 fts[, sector := destinationObjects_GlobalCluster.name]
-fts[is.na(sector) & !is.na(sourceObjects_GlobalCluster.name), sector := sourceObjects_GlobalCluster.name]
-fts[is.na(sector) & !is.na(destinationObjects_Cluster.name), sector := destinationObjects_Cluster.name]
 
 #Split rows into individual sectors where multiple are recorded
 fts <- fts_split_rows(fts, value.cols = "amountUSD_defl", split.col = "sector", split.pattern = "; ", remove.unsplit = T)
