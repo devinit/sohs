@@ -1,9 +1,260 @@
-year,conflict,ea_disb,ea_count
-2018,Conflict,628788255.935461,291
-2018,Non-conflict,47646216.8225825,84
-2019,Conflict,259541886.403966,233
-2019,Non-conflict,42914766.0356152,85
-2020,Conflict,252150644.261987,212
-2020,Non-conflict,44795652.3925697,95
-2021,Conflict,185586152.298095,215
-2021,Non-conflict,70344515.5781518,105
+year,recipient,conflict,ea_disb
+2018,Myanmar,Conflict,8122154.58075086
+2018,Syrian Arab Republic,Conflict,95469515.8862922
+2018,Guatemala,Non-conflict,2220698.23305437
+2018,Yemen,Conflict,340122877.53137
+2018,Lebanon,Non-conflict,11639712.5990681
+2018,Iraq,Conflict,35774332.2124511
+2018,Somalia,Conflict,46574064.6705655
+2018,occupied Palestinian territory,Non-conflict,27836361.3188926
+2018,Mali,Conflict,10088259.4569119
+2018,Nigeria,Conflict,39519585.6174124
+2018,Sudan,Conflict,62775196.0824137
+2018,Niger,Non-conflict,11940755.5057941
+2018,"Congo, The Democratic Republic of the",Conflict,41797559.3492414
+2018,Colombia,Conflict,10575230.3416167
+2018,Cameroon,Conflict,22157133.8184626
+2018,Madagascar,Non-conflict,1447450.27416194
+2018,Peru,Non-conflict,1716114.92873946
+2018,Rwanda,Non-conflict,463866.850070734
+2018,Uganda,Non-conflict,6965051.88362093
+2018,Burkina Faso,Conflict,10312112.2353687
+2018,Zimbabwe,Non-conflict,6870882.01726799
+2018,Chad,Conflict,17536459.8783316
+2018,Kenya,Conflict,5234833.47150574
+2018,Afghanistan,Conflict,23049687.1681469
+2018,Ukraine,Conflict,11863552.3226357
+2018,South Sudan,Conflict,11666171.3431201
+2018,Central African Republic,Conflict,9320403.05711436
+2018,Burundi,Non-conflict,2244357.4327878
+2018,Pakistan,Conflict,1428577.61895746
+2018,Libya,Conflict,3777514.49055769
+2018,Ethiopia,Conflict,32095087.5779941
+2018,Haiti,Non-conflict,5147845.24115289
+2018,Fiji,Non-conflict,66139.0664223489
+2018,Tonga,Non-conflict,4280468.26404931
+2018,Indonesia,Non-conflict,15836595.900514
+2018,"Venezuela, Bolivarian Republic of",Non-conflict,322335.389341341
+2018,Philippines,Conflict,6646377.63898238
+2018,Japan,Non-conflict,370082.299021963
+2018,Viet Nam,Non-conflict,1194752.79964668
+2018,Turkey,Conflict,998050.091496502
+2018,Bangladesh,Non-conflict,2398223.1368827
+2018,Samoa,Non-conflict,25485.0566107107
+2018,India,Conflict,5809953.50323213
+2018,Multi-recipient,Non-conflict,6289243.03962738
+2018,Cuba,Non-conflict,101356.39915878
+2018,Tajikistan,Non-conflict,103015.875627112
+2018,Nepal,Non-conflict,1126430.81640995
+2018,Mozambique,Non-conflict,942018.775168838
+2018,Mauritania,Non-conflict,4167470.91285856
+2018,Egypt,Conflict,380039.441256444
+2018,Djibouti,Non-conflict,1213364.00497775
+2018,Bosnia and Herzegovina,Non-conflict,10750.8428027819
+2018,Papua New Guinea,Non-conflict,9313926.35653942
+2018,Zambia,Non-conflict,6650610.86326762
+2018,"Tanzania, United Republic of",Non-conflict,336992.428713746
+2018,"Korea, Democratic People's Republic of",Non-conflict,605748.701646644
+2018,Ecuador,Non-conflict,1692442.96569215
+2018,Congo,Non-conflict,81995.1925753997
+2018,Brazil,Conflict,833816.87519863
+2018,Lao People's Democratic Republic,Non-conflict,2733851.93106112
+2018,Antigua and Barbuda,Non-conflict,1313466.26592406
+2018,Eritrea,Non-conflict,563801.813793832
+2018,Sri Lanka,Non-conflict,684346.297721138
+2019,Tunisia,Non-conflict,78208.9950260296
+2019,Afghanistan,Conflict,3362805.11678311
+2019,Central African Republic,Conflict,28114859.9829335
+2019,South Sudan,Conflict,30333104.9128998
+2019,Syrian Arab Republic,Conflict,45850025.4439542
+2019,Mozambique,Conflict,31555728.8503369
+2019,Cameroon,Conflict,9622491.30263675
+2019,Myanmar,Conflict,3703532.12395555
+2019,Libya,Conflict,4026599.06384033
+2019,Sudan,Conflict,53019873.6148477
+2019,Somalia,Conflict,52784261.3699107
+2019,Philippines,Conflict,6726637.38988743
+2019,Indonesia,Conflict,2841889.18688268
+2019,Uganda,Non-conflict,6492370.58749947
+2019,Iraq,Conflict,48321321.712313
+2019,Malawi,Non-conflict,14509661.6344777
+2019,Yemen,Conflict,55896965.8301648
+2019,"Iran, Islamic Republic of",Non-conflict,3151352.04043598
+2019,Ethiopia,Non-conflict,22801641.1178474
+2019,Egypt,Conflict,244765.99080987
+2019,Kenya,Conflict,9085091.28891157
+2019,Guatemala,Non-conflict,2030101.21274083
+2019,"Congo, The Democratic Republic of the",Conflict,34832085.8722695
+2019,Nigeria,Conflict,47338375.9281407
+2019,El Salvador,Non-conflict,2317472.6162979
+2019,Chad,Conflict,337136.868763329
+2019,Bangladesh,Non-conflict,13751452.380856
+2019,Haiti,Non-conflict,6431203.64575511
+2019,Pakistan,Conflict,13541938.8301252
+2019,Niger,Non-conflict,10958181.1830869
+2019,Ukraine,Conflict,6517005.51059101
+2019,Burkina Faso,Conflict,4392778.0532683
+2019,Mauritius,Non-conflict,9207246.51942908
+2019,Bahamas,Non-conflict,1024095.93503744
+2019,Colombia,Conflict,1661493.56584866
+2019,Brazil,Conflict,2479417.33826143
+2019,Zimbabwe,Non-conflict,20024268.1691867
+2019,"Korea, Democratic People's Republic of",Non-conflict,6747584.68016369
+2019,"Micronesia, Federated States of",Non-conflict,3264325.75462864
+2019,Jordan,Non-conflict,2411189.74223674
+2019,Turkey,Conflict,746993.797072097
+2019,"Venezuela, Bolivarian Republic of",Non-conflict,9827010.15948753
+2019,Marshall Islands,Non-conflict,177556.053487818
+2019,Multi-recipient,Non-conflict,1380312.13377551
+2019,Algeria,Non-conflict,321513.431313632
+2019,Samoa,Non-conflict,2766346.92243976
+2019,Comoros,Non-conflict,3065848.82686785
+2019,Albania,Non-conflict,204055.965579431
+2019,Lebanon,Non-conflict,139136.121127657
+2019,India,Conflict,149665.112796089
+2019,Ghana,Non-conflict,21921.752309206
+2019,Senegal,Non-conflict,43774.0155657817
+2019,Ecuador,Non-conflict,475513.269655397
+2019,Peru,Non-conflict,736423.519921833
+2019,Mali,Conflict,903.953791263526
+2019,Lao People's Democratic Republic,Non-conflict,996665.554051535
+2019,Lesotho,Non-conflict,5672077.64357982
+2019,Rwanda,Non-conflict,1837379.45665759
+2019,Burundi,Non-conflict,2437104.72538372
+2019,Congo,Non-conflict,3052840.06745632
+2019,Cuba,Non-conflict,2038912.01585523
+2019,Mauritania,Non-conflict,1477380.75648634
+2019,Angola,Non-conflict,6481624.08482542
+2020,"Korea, Democratic People's Republic of",Non-conflict,1426486
+2020,Syrian Arab Republic,Conflict,87436376.3333333
+2020,Central African Republic,Conflict,12167343
+2020,Somalia,Conflict,34428103.55
+2020,Colombia,Conflict,5864064.5
+2020,Nigeria,Conflict,27067092.1666667
+2020,Kenya,Conflict,6019475.16666667
+2020,Cameroon,Conflict,15943982.1333333
+2020,Iraq,Conflict,85161978.3333333
+2020,"Venezuela, Bolivarian Republic of",Non-conflict,5745732.83333333
+2020,"Micronesia, Federated States of",Non-conflict,227424
+2020,Marshall Islands,Non-conflict,125000
+2020,South Sudan,Conflict,39329419.6666667
+2020,Mozambique,Conflict,7587339
+2020,Angola,Non-conflict,4242214.375
+2020,Zambia,Non-conflict,9868674
+2020,Algeria,Non-conflict,139043.375
+2020,Ukraine,Conflict,5097779.66666667
+2020,Myanmar,Conflict,1410343
+2020,Djibouti,Non-conflict,3392527.5
+2020,Lesotho,Non-conflict,3049997
+2020,Congo,Non-conflict,6926982
+2020,Lebanon,Non-conflict,16962562.6666667
+2020,Namibia,Non-conflict,3000029
+2020,Uganda,Non-conflict,4911521
+2020,Multi-recipient,Non-conflict,20309911
+2020,Zimbabwe,Non-conflict,38712443
+2020,Sudan,Conflict,111491513
+2020,"Congo, The Democratic Republic of the",Conflict,71890142
+2020,Burkina Faso,Conflict,14515059
+2020,Pakistan,Non-conflict,11160378.1666667
+2020,Mali,Conflict,9264599
+2020,Chad,Conflict,7877969
+2020,Haiti,Non-conflict,7197982
+2020,occupied Palestinian territory,Non-conflict,27353701
+2020,Uzbekistan,Non-conflict,399553
+2020,Philippines,Conflict,2123034.33333333
+2020,Libya,Conflict,5292973
+2020,Jordan,Non-conflict,1675465.85714286
+2020,"Iran, Islamic Republic of",Non-conflict,4954906
+2020,Peru,Non-conflict,794809
+2020,Burundi,Non-conflict,2050272
+2020,Afghanistan,Conflict,20720938.2954545
+2020,Ethiopia,Conflict,11839987.4
+2020,Niger,Non-conflict,13535216
+2020,"Bolivia, Plurinational State of",Non-conflict,107000
+2020,Brazil,Conflict,572306
+2020,Ecuador,Non-conflict,795103
+2020,"Tanzania, United Republic of",Non-conflict,428000
+2020,Turkey,Conflict,2137548
+2020,Mauritania,Non-conflict,950000
+2020,Vanuatu,Non-conflict,2605385
+2020,Yemen,Conflict,94716677
+2020,Bangladesh,Non-conflict,15662419.75
+2020,India,Non-conflict,60844
+2020,Fiji,Non-conflict,1002748
+2020,El Salvador,Non-conflict,2173286.33333333
+2020,Rwanda,Non-conflict,1e+06
+2020,Madagascar,Non-conflict,4049788
+2020,Greece,Non-conflict,1068433
+2020,Indonesia,Non-conflict,2671781
+2020,Viet Nam,Non-conflict,3759276.5
+2020,Guatemala,Non-conflict,2522190
+2020,Nicaragua,Non-conflict,1604000
+2020,Thailand,Non-conflict,59737
+2020,Honduras,Non-conflict,137481.333333333
+2020,Dominican Republic,Non-conflict,92491
+2020,Panama,Non-conflict,105388
+2020,Trinidad and Tobago,Non-conflict,99926
+2021,Central African Republic,Conflict,27005687.3917067
+2021,Sudan,Conflict,11632005.3808554
+2021,Kenya,Conflict,1438603.71795587
+2021,"Venezuela, Bolivarian Republic of",Non-conflict,2746524.85801074
+2021,"Congo, The Democratic Republic of the",Conflict,50030134.5816173
+2021,Algeria,Non-conflict,130182.766463466
+2021,Lebanon,Non-conflict,6975877.04757733
+2021,Multi-recipient,Non-conflict,5510035.06012406
+2021,Nigeria,Conflict,40135966.1528492
+2021,Mexico,Conflict,338896.28026479
+2021,Somalia,Conflict,18627239.2845799
+2021,Syrian Arab Republic,Conflict,25811386.3228135
+2021,Burkina Faso,Conflict,10122074.2772125
+2021,Iraq,Conflict,16526596.3979531
+2021,Chad,Conflict,34341.0272289811
+2021,Honduras,Non-conflict,5592989.21591507
+2021,Philippines,Conflict,1971393.66925087
+2021,Ethiopia,Conflict,47100616.2684061
+2021,Nicaragua,Non-conflict,188235.540647114
+2021,Afghanistan,Conflict,85819665.7386498
+2021,South Sudan,Conflict,22591385.7904584
+2021,Armenia,Conflict,5440370.2861992
+2021,Azerbaijan,Conflict,4644619.7490663
+2021,Fiji,Non-conflict,475342.274361398
+2021,Yemen,Conflict,32586018.018867
+2021,Guinea,Non-conflict,5704108.24302133
+2021,Cameroon,Conflict,4151562.00422997
+2021,Peru,Non-conflict,4670566.39390475
+2021,Equatorial Guinea,Non-conflict,945421.559061067
+2021,Bangladesh,Non-conflict,2775177.45925967
+2021,Mali,Conflict,6033251.54909911
+2021,Libya,Conflict,1639370.73908863
+2021,Colombia,Conflict,15373843.3816577
+2021,Saint Vincent and the Grenadines,Non-conflict,950684.548722796
+2021,Ukraine,Conflict,768355.173429876
+2021,Mozambique,Conflict,363602.182696144
+2021,Ecuador,Non-conflict,3452783.70527058
+2021,occupied Palestinian territory,Non-conflict,38532140.486119
+2021,"Bolivia, Plurinational State of",Non-conflict,50100.2822115662
+2021,Dominican Republic,Non-conflict,432035.015888328
+2021,Panama,Non-conflict,355256.243467341
+2021,Trinidad and Tobago,Non-conflict,516758.101911746
+2021,Costa Rica,Non-conflict,240236.084093153
+2021,Burundi,Non-conflict,1426036.32992968
+2021,Niger,Non-conflict,12868747.1732574
+2021,Antigua and Barbuda,Non-conflict,0
+2021,Haiti,Non-conflict,2456040.32523865
+2021,Brazil,Conflict,632567.56365324
+2021,Myanmar,Conflict,9231475.08115429
+2021,Uganda,Non-conflict,1474809.29933281
+2021,Mauritania,Non-conflict,282014.174198029
+2021,Nepal,Non-conflict,4138547.54735199
+2021,Jordan,Non-conflict,2433938.40807922
+2021,Angola,Non-conflict,1521095.27795647
+2021,Turkey,Conflict,3562883.15031246
+2021,Argentina,Non-conflict,314328.609503871
+2021,Aruba,Non-conflict,8273.86295517398
+2021,Chile,Non-conflict,2152271.90129302
+2021,Curaçao,Non-conflict,4335.76672825963
+2021,Guyana,Non-conflict,64301.9687600018
+2021,Paraguay,Non-conflict,77968.5139749235
+2021,Uruguay,Non-conflict,13861.5195869405
+2021,Madagascar,Non-conflict,142729.1233534
+2021,El Salvador,Non-conflict,0

@@ -7,7 +7,7 @@ setwd(dirname(getActiveDocumentContext()$path))
 setwd("..")
 setwd("..")
 
-fts <- fts_curated_flows(years = 2018:2021, update = NA, dataset_path = "reference_datasets")
+fts <- fts_curated_flows(years = 2018:2021, update = NA, dataset_path = "reference_datasets", base_year = 2020)
 
 #Assign a sector from available fields
 fts[, sector := destinationObjects_GlobalCluster.name]
@@ -67,6 +67,6 @@ rm(list = c("hiik", "conflict"))
 
 fts_output[, conflict := ifelse(paste0(iso3,year) %in% paste0(conflict_isos$iso3, conflict_isos$year), "Conflict", "Non-conflict")]
 
-fts_agg <- fts_output[!is.na(iso3), .(ea_disb = sum(amountUSD_defl, na.rm = T), ea_count = length(id)), by = .(year, conflict)][order(year)]
+fts_agg <- fts_output[!is.na(iso3), .(ea_disb = sum(amountUSD_defl, na.rm = T)), by = .(year, recipient, conflict)][order(year)]
 
 fwrite(fts_agg, "Early and anticipatory action\\Fig 6.2\\Early action conflict settings.csv")

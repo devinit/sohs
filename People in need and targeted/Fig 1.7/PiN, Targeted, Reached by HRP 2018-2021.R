@@ -1,5 +1,5 @@
 suppressPackageStartupMessages(lapply(c("data.table", "jsonlite","rstudioapi"), require, character.only=T))
-source("https://raw.githubusercontent.com/devinit/gha_automation/main/PiN/hpc_caseload_api.R")
+lapply(c("https://raw.githubusercontent.com/devinit/gha_automation/main/PiN/hpc_caseload_api.R", "https://raw.githubusercontent.com/devinit/gha_automation/main/general/deflators.R"), source)
 
 setwd(dirname(getActiveDocumentContext()$path))
 setwd("..")
@@ -35,6 +35,11 @@ plan_caseloads <- plan_caseloads[metric_id %in% c("inNeed", "target", "expectedR
 plan_caseloads <- plan_caseloads[plan_caseloads[, .I[which.max(value)], by = .(plan_id, metric_id)]$V1]
 
 plans_percap <- merge(plan_caseloads, plans[, .(plan_id = as.character(id), type, revisedRequirements)], by = "plan_id")
+
+deflators <- get_deflators(base_year = 2020, currency = "USD", weo_ver = "Oct2021", approximate_missing = T)[ISO == "DAC"]
+plans_percap <- merge(plans_percap, deflators[, .(year = as.character(year), gdp_defl)], by = "year")
+plans_percap[, requirements_defl := revisedRequirements/gdp_defl]
+
 fwrite(plans_percap, "People in need and targeted/Fig 1.7/plans_req_pin.csv")
 
 #Sex disaggregations

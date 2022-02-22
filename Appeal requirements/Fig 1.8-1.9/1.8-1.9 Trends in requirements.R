@@ -1,8 +1,10 @@
 lapply(c("data.table", "rstudioapi"), require, character.only = T)
 setwd(dirname(getActiveDocumentContext()$path))
 
-source("https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_api_appeals.R")
-source("https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_appeals_data.R")
+lapply(c("https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_api_appeals.R"
+         ,"https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_appeals_data.R"
+         ,"https://raw.githubusercontent.com/devinit/gha_automation/main/general/deflators.R")
+       , source)
 
 appeals <- data.table(fts_get_appeals())
 
@@ -26,9 +28,13 @@ appeals_table <- merge(appeals[, -"year"], appeals_table[, -"plan_name"], by.x =
 #Choose which appeal types to include
 appeals_req <- appeals_table[!is.na(location) & type %in% c("CAP", "Humanitarian response plan", "Flash appeal", "Other"), .(total_funding = sum(`Funded through this plan` + `COVID.Funded through this plan`, na.rm = T), total_requirements = sum(`Total requirements` + `COVID.Total requirements`, na.rm = T)), by = .(location, year)][, requirements_met := total_funding/total_requirements]
 
+deflators <- get_deflators(base_year = 2020, currency = "USD", weo_ver = "Oct2021", approximate_missing = T)[ISO == "DAC"]
+appeals_req <- merge(appeals_req, deflators[, .(year = as.character(year), gdp_defl)])
+appeals_req[, `:=` (total_funding_defl = total_funding/gdp_defl, total_requirements_defl = total_requirements/gdp_defl, gdp_defl = NULL)]
+
 #Fig 1.8 Trends in levels of requirements met for countries with 10 consecutive years of appeals, 2012-2021
-appeals_req_10ycc_1120 <- appeals_req[year %in% c(2011:2020), .SD[all(2011:2020 %in% year)], by = location][order(location, year)]
-appeals_req_10ycc_1220 <- appeals_req[year %in% c(2012:2021), .SD[all(2012:2021 %in% year)], by = location][order(location, year)]
+appeals_req_10ycc_1221 <- appeals_req[year %in% c(2012:2021), .SD[all(2012:2021 %in% year)], by = location][order(location, year)]
+fwrite(appeals_req_10ycc_1221, "appeals_10yrcons.csv")
 
 #Fig 1.9 Trends in levels of requirements met over first 5 years of a crisis (by crisis type)
 appeals_req_f5ycc <- appeals_req[order(location, year)][, crisis_run := cumsum(c(T, diff(as.numeric(year)) != 1)), by = location][, consecutive_crisis := cumsum(c(T, diff(as.numeric(year)) == 1)), by = .(location, crisis_run)]

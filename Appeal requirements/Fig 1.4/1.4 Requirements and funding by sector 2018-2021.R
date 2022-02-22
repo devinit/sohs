@@ -2,7 +2,7 @@ lapply(c("data.table", "rstudioapi"), require, character.only = T)
 
 setwd(dirname(dirname(dirname(getActiveDocumentContext()$path))))
 
-source("https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_appeals_data.R")
+lapply(c("https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_appeals_data.R","https://raw.githubusercontent.com/devinit/gha_automation/main/general/deflators.R"), source)
 
 appeals <- fts_get_appeal_urls(2018:2021)
 
@@ -28,6 +28,10 @@ appeals_clusters[, caps_cluster := toupper(Cluster)]
 appeals_clusters <- merge(appeals_clusters, cluster.map, by = "caps_cluster", all.x = T)[, caps_cluster := NULL][order(year, plan_name, `Global cluster`, Cluster)]
 
 appeals_clusters_agg <- appeals_clusters[, .(Requirements = sum(`Current requirements US$`, na.rm = T), Funding = sum(`Funding US$`, na.rm = T)), by = .(year, `Global cluster`)]
+
+deflators <- get_deflators(base_year = 2020, currency = "USD", weo_ver = "Oct2021", approximate_missing = T)[ISO == "DAC"]
+appeals_clusters_agg <- merge(appeals_clusters_agg, deflators[, .(year, gdp_defl)], by = "year")
+appeals_clusters_agg[, `:=` (Requirements_defl = Requirements/gdp_defl, Funding_defl = Funding/gdp_defl, gdp_defl = NULL)]
 
 setwd(dirname(getActiveDocumentContext()$path))
 fwrite(appeals_clusters_agg, "output_appeal_clusters_agg.csv")
