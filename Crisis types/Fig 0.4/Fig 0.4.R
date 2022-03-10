@@ -123,3 +123,32 @@ all_crises[paste0(iso3, year) %in% acaps_flags[Complex == 1, paste0(iso3, year)]
 all_crises[Complex == 1 & Conflict == 0 & Displacement == 0 & paste0(iso3, year) %in% lccs[, paste0(iso3, year)], `:=` (Conflict = 1, Displacement = 1)]
 
 fwrite(all_crises[order(iso3, year)], "Crisis types/Fig 0.4/crisis_types.csv")
+
+#Funding
+lapply(c("https://raw.githubusercontent.com/devinit/gha_automation/main/IHA/fts_curated_flows.R", "https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_api_appeals.R"), source)
+setwd("..")
+setwd("..")
+fts <- fts_curated_flows(years = 2018:2021, update = NA, dataset_path = "reference_datasets", base_year = 2020)
+
+appeals <- fts_get_appeals(2018:2021)
+appeals[, type := sapply(categories, function(x) x$name)]
+
+fts <- merge(fts, appeals[, .(id, type)], by.x = "destinationObjects_Plan.id", by.y = "id", all.x = T)
+fts <- merge(fts, all_crises[, year := as.character(year)], by.x = c("destination_iso3", "year"), by.y = c("iso3", "year"), all.x = T)
+
+fts[destination_iso3 != "", COVID := 0]
+
+#RRPs assigned 'Displacement'
+fts[type == "Regional response plan" & destination_iso3 != "", `:=` (Conflict = 0, Physical = 0, Complex = 0, Displacement = 1)]
+
+#FAs assigned 'Physical' (but allow Complex if already flagged)
+fts[type == "Flash appeal" & destination_iso3 != "", `:=` (Conflict = 0, Physical = 1, Displacement = 0)]
+
+#COVID flows assigned 'COVID' only
+fts[grepl("COVID", paste0(destinationObjects_Plan.name, destinationObjects_GlobalCluster.name, destinationObjects_Cluster.name, destinationObjects_Emergency.name), ignore.case = T) & destination_iso3 != "", `:=` (Conflict = 0, Physical = 0, Displacement = 0, COVID = 1)]
+
+fts_agg <- melt(fts[new_to_country == T, (lapply(.SD, function(x) x*amountUSD_defl)), .SDcols = c("Complex", "Physical", "Conflict", "Displacement", "COVID"), by = .(year, amountUSD_defl)], id.vars = c("year"))
+fts_agg <- fts_agg[, .(amountUSD_defl = sum(value, na.rm = T)), by = .(year, variable)]
+
+setwd(dirname(dirname(dirname(getActiveDocumentContext()$path))))
+fwrite(fts_agg, "Crisis types/Fig 0.4/crisis_funding.csv")
