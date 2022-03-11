@@ -126,8 +126,6 @@ fwrite(all_crises[order(iso3, year)], "Crisis types/Fig 0.4/crisis_types.csv")
 
 #Funding
 lapply(c("https://raw.githubusercontent.com/devinit/gha_automation/main/IHA/fts_curated_flows.R", "https://raw.githubusercontent.com/devinit/di_script_repo/main/gha/FTS/fts_api_appeals.R"), source)
-setwd("..")
-setwd("..")
 fts <- fts_curated_flows(years = 2018:2021, update = NA, dataset_path = "reference_datasets", base_year = 2020)
 
 appeals <- fts_get_appeals(2018:2021)
