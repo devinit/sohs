@@ -28,7 +28,7 @@ vulns <- inform[IndicatorId == "VU" & IndicatorScore >= 6, .(iso3 = Iso3, year)]
 
 #ACAPS
 dates <- as.POSIXlt("2019-01-01")
-dates$mon <- seq(0,length(seq(as.Date("2019-01-01"), Sys.Date(), by = 'month'))-1)
+dates$mon <- seq(0,length(seq(as.Date("2019-01-01"), as.Date("2021-12-01"), by = 'month'))-1)
 dates <- format.Date(dates, "%b%Y")
 
 acaps <- data.table()
@@ -70,19 +70,19 @@ physical <- unique(rbind(unique(emdat[physical_marker == TRUE, .(iso3 = ISO, yea
 hiik[, countries := gsub(" [(].*| et al[.]| et[.] al|°","", conflict)]
 hiik[, countries := gsub(" – ", ", ", countries)]
 
-data_cols <- c("X", names(hiik)[grepl("intensity", names(hiik))])
-hiik <- merge(hiik[, .(country = unlist(strsplit(countries, ", "))), by = .(X, type)], hiik[, ..data_cols])
+data_cols <- c("obs", names(hiik)[grepl("intensity", names(hiik))])
+hiik <- merge(hiik[, .(country = unlist(strsplit(countries, ", "))), by = .(obs, type)], hiik[, ..data_cols])
 
 hiik <- merge(hiik, isos[,c("iso3", "countryname_hiik")], by.x = "country", by.y = "countryname_hiik", all.x = T)
 
-hiik <- melt(hiik, id.vars = c("X", "iso3", "country", "type"))
+hiik <- melt(hiik, id.vars = c("obs", "iso3", "country", "type"))
 hiik[, year := gsub("\\D", "", variable)]
 
 hiik <- unique(rbind(hiik, copy(hiik)[year == max(year), year := as.character(as.numeric(year) + 1)]))
 
 acaps_conflict <- acaps_flags[Conflict == 1 & year == 2019]
 acaps_conflict <- merge(acaps_conflict[, year := 2018], hiik, by = c("iso3", "year"))
-acaps_conflict <- merge(acaps_conflict, hiik[year == 2019], by = c("iso3", "type", "X"), suffixes = c("_18", "_19"))
+acaps_conflict <- merge(acaps_conflict, hiik[year == 2019], by = c("iso3", "type", "obs"), suffixes = c("_18", "_19"))
 acaps_conflict <- acaps_conflict[value_18 >= value_19, .(iso3, year = year_18)]
 
 hiik[value >= 4  & paste0(iso3, year) %in% lccs[, paste0(iso3, year)], conflict_marker := T]
@@ -131,10 +131,10 @@ fts <- fts_curated_flows(years = 2018:2021, update = NA, dataset_path = "referen
 appeals <- fts_get_appeals(2018:2021)
 appeals[, type := sapply(categories, function(x) x$name)]
 
-fts <- merge(fts, appeals[, .(id = as.character(id), type)], by.x = "destinationObjects_Plan.id", by.y = "id", all.x = T)
+fts <- merge(fts[, destinationObjects_Plan.id := as.character(destinationObjects_Plan.id)], appeals[, .(id = as.character(id), type)], by.x = "destinationObjects_Plan.id", by.y = "id", all.x = T)
 fts <- merge(fts[, year := as.character(year)], all_crises[, year := as.character(year)], by.x = c("destination_iso3", "year"), by.y = c("iso3", "year"), all.x = T)
 
-fts[, COVID := 0]
+fts$COVID <- 0
 
 #RRPs assigned 'Displacement'
 fts[type == "Regional response plan" & destination_iso3 != "", `:=` (Conflict = 0, Physical = 0, Complex = 0, Displacement = 1)]
@@ -143,12 +143,17 @@ fts[type == "Regional response plan" & destination_iso3 != "", `:=` (Conflict = 
 fts[type == "Flash appeal" & destination_iso3 != "", `:=` (Conflict = 0, Physical = 1, Displacement = 0)]
 
 #COVID flows assigned 'COVID' only
-fts[grepl("COVID", paste0(destinationObjects_Plan.name, destinationObjects_GlobalCluster.name, destinationObjects_Cluster.name, destinationObjects_Emergency.name), ignore.case = T), `:=` (Complex = 0, Conflict = 0, Physical = 0, Displacement = 0, COVID = 1)]
+#fts[grepl("COVID", paste0(destinationObjects_Plan.name, destinationObjects_GlobalCluster.name, destinationObjects_Cluster.name, destinationObjects_Emergency.name), ignore.case = T), `:=` (Complex = 0, Conflict = 0, Physical = 0, Displacement = 0, COVID = 1)]
+#fts[grepl("COVID", paste0(destinationObjects_Plan.name, destinationObjects_GlobalCluster.name, destinationObjects_Cluster.name, destinationObjects_Emergency.name), ignore.case = T), `:=` (COVID = 1)]
+fts[grepl("COVID", paste0(destinationObjects_Plan.name, destinationObjects_Emergency.name), ignore.case = T), `:=` (Complex = 0, Conflict = 0, Physical = 0, Displacement = 0, COVID = 1)]
 
 fts[, Total := 1]
 
-fts_agg <- melt(fts[new_to_country == T & destination_country != "Multi-destination_country" & destination_country != "Global", (lapply(.SD, function(x) x*amountUSD_defl)), .SDcols = c("Complex", "Physical", "Conflict", "Displacement", "COVID", "Total"), by = .(year)], id.vars = c("year"))
-fts_agg <- fts_agg[, .(amountUSD_defl = sum(value, na.rm = T)), by = .(year, variable)]
+#fts_agg <- melt(fts[new_to_country == T & destination_country != "Multi-destination_country" & destination_country != "Global", (lapply(.SD, function(x) x*amountUSD_defl)), .SDcols = c("Complex", "Physical", "Conflict", "Displacement", "COVID", "Total"), by = .(year)], id.vars = c("year"))
+#fts_agg <- fts_agg[, .(amountUSD_defl = sum(value, na.rm = T)), by = .(year, variable)]
+
+fts_agg <- fts[new_to_country == T & destination_country != "Multi-destination_country" & destination_country != "Global", .(amountUSD_defl = sum(amountUSD_defl, na.rm = T)), by = .(year, Complex, Physical, Conflict, Displacement, COVID)]
+fts_agg[is.na(fts_agg)] <- 0
 
 setwd(dirname(dirname(dirname(getActiveDocumentContext()$path))))
-fwrite(fts_agg, "Crisis types/Fig 0.4/crisis_funding.csv")
+fwrite(fts_agg, "Crisis types/Fig 0.4/crisis_funding_v4.csv")
