@@ -1,9 +1,10 @@
-fts_save_master <- function(years, path = "IHA/datasets/fts_curated_master/"){
+fts_save_master <- function(years, update_years = NA, path = "IHA/datasets/fts_curated_master/"){
   source("https://raw.githubusercontent.com/devinit/gha_automation/main/IHA/fts_curated_flows.R")
-  fts_all <- fts_curated_flows(years = years)
+  fts_all <- fts_curated_flows(years = years, update_years = update_years)
   for(i in 1:length(years)){
     fwrite(fts_all[year == years[[i]]], paste0(path, "fts_curated_", years[[i]], ".csv"))
   }
+  write(fts_all, paste0(path, "fts_curated_", years[1], "_", years[length(years)], ".csv"))
 }
 
 fts_read_master <- function(years = years, extra_columns = NULL){
