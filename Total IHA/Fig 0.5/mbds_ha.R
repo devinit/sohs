@@ -84,6 +84,7 @@ crs <- merge(crs, countrynames[, c("iso3", "countryname_oecd")], by.x = "Recipie
 
 crs_ha <- crs[Humanitarian == T]
 crs_ha_rank <- crs_ha[!is.na(iso3), .(ha_total = sum(USD_Disbursement_Defl, na.rm = T)), by = .(Year, iso3, RecipientName)][, ha_rank := frank(-ha_total), by = Year][]
+fwrite(crs_ha_rank[ha_rank >= 20], "Total IHA/Fig 0.5/top_20_ha_recipients_list.csv")
 
 crs <- merge(crs, crs_ha_rank[, .(Year, RecipientName, ha_rank)], by = c("RecipientName", "Year"), all.x = T)
 
